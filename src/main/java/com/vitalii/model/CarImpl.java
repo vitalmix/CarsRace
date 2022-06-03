@@ -1,11 +1,10 @@
 package com.vitalii.model;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class CarImpl {
 
-    private List<Car> cars = new ArrayList<Car>();
+    private ArrayList<Car> cars = new ArrayList<Car>();
 
     public CarImpl(int amountOfCarsToImpl) {
         for (int i = 0; i < amountOfCarsToImpl; i++) {
@@ -13,7 +12,7 @@ public class CarImpl {
         }
     }
 
-    public List<Car> getCars() {
+    public ArrayList<Car> getCars() {
         return cars;
     }
 

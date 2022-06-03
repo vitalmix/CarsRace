@@ -14,6 +14,12 @@ public class Car {
         this.acceleration = acceleration;
     }
 
+    public void accelerate() {
+        if (speed < maxSpeed) {
+            speed += acceleration;
+        }
+    }
+
     public String getName() {
         return name;
     }

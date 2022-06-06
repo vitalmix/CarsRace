@@ -7,6 +7,7 @@ public class Car {
     private int maxSpeed;
     private int acceleration;
     private CarView carView;
+    private int passedDistance = 0;
 
     public Car(String name, int speed, int maxSpeed, int acceleration, CarView carView) {
         this.name = name;
@@ -25,6 +26,7 @@ public class Car {
     public void move() {
         accelerate();
         carView.getImageView().setX(carView.getImageView().getX() + speed);
+        passedDistance += carView.getImageView().getX();
     }
 
     public String getName() {
@@ -45,5 +47,9 @@ public class Car {
 
     public CarView getCarView() {
         return carView;
+    }
+
+    public int getPassedDistance() {
+        return passedDistance;
     }
 }

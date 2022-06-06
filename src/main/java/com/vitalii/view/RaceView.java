@@ -7,6 +7,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
@@ -42,6 +43,12 @@ public class RaceView extends Application {
         finishLine.setStrokeWidth(5);
         finishLine.setStroke(Color.WHITE);
 
+        scene.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                System.out.println("X: " + mouseEvent.getX());
+            }
+        });
 
         root.getChildren().add(finishLine);
         root.getChildren().add(button);

@@ -10,7 +10,10 @@ public class RaceManager {
 
     private Group root;
     private final int CARS_TO_RACE = 10;
+    private final int DISTANCE = 2500;
     private ArrayList<Car> carsToRace = new CarImpl(10).getCars();
+
+    private boolean isRace = false;
 
     public RaceManager(Group root) {
         this.root = root;
@@ -23,5 +26,32 @@ public class RaceManager {
 
             step += 50;
         }
+    }
+
+    public void startRace() {
+
+        isRace = true;
+
+        System.out.println("The race has started!");
+
+        new Thread(new Runnable() {
+            public void run() {
+                while (isRace) {
+                    for (Car car : carsToRace) {
+                        car.move();
+                        try {
+                            Thread.sleep(20);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        if (car.getPassedDistance() >= DISTANCE) {
+                            isRace = false;
+                            System.out.println(car.getName() + " is the Winner!");
+                            break;
+                        }
+                    }
+                }
+            }
+        }).start();
     }
 }

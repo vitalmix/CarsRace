@@ -22,6 +22,11 @@ public class Car {
         }
     }
 
+    public void move() {
+        accelerate();
+        carView.getImageView().setX(carView.getImageView().getX() + speed);
+    }
+
     public String getName() {
         return name;
     }

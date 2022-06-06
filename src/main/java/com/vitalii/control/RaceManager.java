@@ -14,6 +14,7 @@ public class RaceManager {
     private final int CARS_TO_RACE = 10;
     private final int DISTANCE = 600;
     private ArrayList<Car> carsToRace;
+    private CarImpl carImpl;
     private String winner;
 
     private boolean isRace = false;
@@ -21,17 +22,23 @@ public class RaceManager {
     public RaceManager(Group root) {
         this.root = root;
 
-        carsToRace = new CarImpl(CARS_TO_RACE, root).getCars();
+        carImpl = new CarImpl(CARS_TO_RACE, root);
+        carsToRace = carImpl.getCars();
     }
 
     public void startRace() {
+
+        final ExecutorService executorService = Executors.newFixedThreadPool(CARS_TO_RACE);
+
+        if (winner != null) {
+            carImpl.reload();
+            winner = null;
+        }
 
         final Object monitor = new Object();
         isRace = true;
 
         System.out.println("The race has started!");
-
-        final ExecutorService executorService = Executors.newFixedThreadPool(CARS_TO_RACE);
 
         for (int i = 0; i < CARS_TO_RACE; i++) {
             final int index = i;
@@ -53,7 +60,8 @@ public class RaceManager {
                                     System.out.println("Passed distance: " + car.getPassedDistance());
                                     executorService.shutdownNow();
                                 }
-                                System.out.println(car.getName() + " has passed: " + car.getPassedDistance());
+                                System.out.println(car.getName() + " has passed: " + car.getPassedDistance() +
+                                        " speed: " + car.getSpeed());
                                 break;
                             }
                         }

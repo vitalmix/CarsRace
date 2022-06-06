@@ -14,7 +14,7 @@ public class CarImpl {
 
         for (int i = 0; i < amountOfCarsToImpl; i++) {
 
-            Car buffCar = new Car("Car " + (i + 1), (i + 1), getRandNumber(200, 250), getRandNumber(10, 15),
+            Car buffCar = new Car("Car " + (i + 1), (i + 1), getRandNumber(200, 250), getRandNumber(10, 20),
                     new CarView());
 
             buffCar.getCarView().getImageView().setX(0);
@@ -30,6 +30,15 @@ public class CarImpl {
 
     public ArrayList<Car> getCars() {
         return cars;
+    }
+
+    public void reload() {
+        for (Car car : cars) {
+            car.setMaxSpeed(getRandNumber(200,250));
+            car.setAcceleration(getRandNumber(10,15));
+            car.setPassedDistance(0);
+            car.getCarView().getImageView().setX(0);
+        }
     }
 
     private int getRandNumber(int min, int max) {

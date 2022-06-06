@@ -65,4 +65,16 @@ public class Car {
     public int getPassedDistance() {
         return passedDistance;
     }
+
+    public void setMaxSpeed(int maxSpeed) {
+        this.maxSpeed = maxSpeed;
+    }
+
+    public void setAcceleration(int acceleration) {
+        this.acceleration = acceleration;
+    }
+
+    public void setPassedDistance(int passedDistance) {
+        this.passedDistance = passedDistance;
+    }
 }

@@ -1,5 +1,7 @@
 package com.vitalii.model;
 
+import javafx.application.Platform;
+
 public class Car {
 
     private String name;
@@ -8,6 +10,8 @@ public class Car {
     private int acceleration;
     private CarView carView;
     private int passedDistance = 0;
+
+    private float step;
 
     public Car(String name, int speed, int maxSpeed, int acceleration, CarView carView) {
         this.name = name;
@@ -25,8 +29,17 @@ public class Car {
 
     public void move() {
         accelerate();
-        carView.getImageView().setX(carView.getImageView().getX() + speed);
-        passedDistance = (int) carView.getImageView().getX();
+
+        step = (float) speed / 70;
+
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    carView.getImageView().setX(carView.getImageView().getX() + step);
+                }
+            });
+            passedDistance = (int) carView.getImageView().getX();
+
     }
 
     public String getName() {

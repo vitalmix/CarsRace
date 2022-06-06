@@ -8,6 +8,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
 public class RaceView extends Application {
@@ -33,6 +34,16 @@ public class RaceView extends Application {
             }
         });
 
+        Line finishLine = new Line();
+        finishLine.setStartX(600);
+        finishLine.setStartY(10);
+        finishLine.setEndX(600);
+        finishLine.setEndY(550);
+        finishLine.setStrokeWidth(5);
+        finishLine.setStroke(Color.WHITE);
+
+
+        root.getChildren().add(finishLine);
         root.getChildren().add(button);
         primaryStage.setScene(scene);
         primaryStage.show();

@@ -8,7 +8,8 @@ public class CarImpl {
 
     public CarImpl(int amountOfCarsToImpl) {
         for (int i = 0; i < amountOfCarsToImpl; i++) {
-            cars.add(new Car("Car " + (i + 1), (i + 1), getRandNumber(70, 100), getRandNumber(4, 7)));
+            cars.add(new Car("Car " + (i + 1), (i + 1), getRandNumber(70, 100), getRandNumber(4, 7),
+                    new CarView()));
         }
     }
 

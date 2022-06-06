@@ -6,12 +6,14 @@ public class Car {
     private int speed;
     private int maxSpeed;
     private int acceleration;
+    private CarView carView;
 
-    public Car(String name, int speed, int maxSpeed, int acceleration) {
+    public Car(String name, int speed, int maxSpeed, int acceleration, CarView carView) {
         this.name = name;
         this.speed = speed;
         this.maxSpeed = maxSpeed;
         this.acceleration = acceleration;
+        this.carView = carView;
     }
 
     public void accelerate() {
@@ -34,5 +36,9 @@ public class Car {
 
     public int getAcceleration() {
         return acceleration;
+    }
+
+    public CarView getCarView() {
+        return carView;
     }
 }

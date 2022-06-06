@@ -11,7 +11,7 @@ import java.util.concurrent.Executors;
 public class RaceManager {
 
     private Group root;
-    private final int CARS_TO_RACE = 4;
+    private final int CARS_TO_RACE = 10;
     private final int DISTANCE = 600;
     private ArrayList<Car> carsToRace;
     private String winner;
@@ -40,6 +40,11 @@ public class RaceManager {
                     Car car = carsToRace.get(index);
                     while (isRace) {
                         synchronized (monitor) {
+                            if (Thread.interrupted()) {
+                                System.out.println(car.getName() + " has passed: " + car.getPassedDistance() +
+                                        " speed: " + car.getSpeed());
+                                break;
+                            }
                             if (car.getPassedDistance() >= DISTANCE) {
                                 if (winner == null) {
                                     winner = car.getName();
@@ -54,9 +59,10 @@ public class RaceManager {
                         }
                         car.move();
                         try {
-                            Thread.sleep(50);
+                            Thread.sleep(15);
                         } catch (InterruptedException e) {
-                            System.out.println(car.getName() + " has passed: " + car.getPassedDistance());
+                            System.out.println(car.getName() + " has passed: " + car.getPassedDistance() +
+                                  " speed: " + car.getSpeed());
                             break;
                         }
                     }

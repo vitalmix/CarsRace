@@ -14,7 +14,7 @@ public class CarImpl {
 
         for (int i = 0; i < amountOfCarsToImpl; i++) {
 
-            Car buffCar = new Car("Car " + (i + 1), (i + 1), getRandNumber(70, 100), getRandNumber(1, 2),
+            Car buffCar = new Car("Car " + (i + 1), (i + 1), getRandNumber(200, 250), getRandNumber(10, 15),
                     new CarView());
 
             buffCar.getCarView().getImageView().setX(0);

@@ -26,7 +26,7 @@ public class Car {
     public void move() {
         accelerate();
         carView.getImageView().setX(carView.getImageView().getX() + speed);
-        passedDistance += carView.getImageView().getX();
+        passedDistance = (int) carView.getImageView().getX();
     }
 
     public String getName() {

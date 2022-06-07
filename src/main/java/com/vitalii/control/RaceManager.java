@@ -9,11 +9,12 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import static com.vitalii.utils.Constants.CARS_TO_RACE;
+import static com.vitalii.utils.Constants.DISTANCE_TO_RACE;
+
 public class RaceManager {
 
     private Group root;
-    private final int CARS_TO_RACE = 10;
-    private final int DISTANCE = 600;
     private ArrayList<Car> carsToRace;
     private CarImpl carImpl;
     private String winner;
@@ -65,7 +66,7 @@ public class RaceManager {
                                         " speed: " + car.getSpeed());
                                 break;
                             }
-                            if (car.getPassedDistance() >= DISTANCE) {
+                            if (car.getPassedDistance() >= DISTANCE_TO_RACE) {
                                 if (winner == null) {
                                     winner = car.getName();
                                     isRace = false;

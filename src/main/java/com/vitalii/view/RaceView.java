@@ -66,19 +66,19 @@ public class RaceView extends Application {
 
         for (int i = 0; i < Constants.CARS_TO_RACE; i++) {
 
-            Line asphaltRoad = new Line(0, step, 149, step);
+            Line asphaltRoad = new Line(Constants.ASPHALT1_ROAD_START, step, Constants.ASPHALT1_ROAD_FINISH, step);
             asphaltRoad.setStrokeWidth(20);
             asphaltRoad.setStroke(Color.rgb(35, 27, 19));
 
-            Line offRoad = new Line(169, step, 299, step);
+            Line offRoad = new Line(Constants.OFF_ROAD_START, step, Constants.OFF_ROAD_FINISH, step);
             offRoad.setStrokeWidth(20);
             offRoad.setStroke(Color.rgb(205, 129, 47));
 
-            Line tunnel = new Line(319, step, 399, step);
+            Line tunnel = new Line(Constants.TUNNEL_ROAD_START, step, Constants.TUNNEL_ROAD_FINISH, step);
             tunnel.setStrokeWidth(20);
             tunnel.setStroke(Color.GRAY);
 
-            Line asphaltRoad2 = new Line(419, step, 590, step);
+            Line asphaltRoad2 = new Line(Constants.ASPHALT2_ROAD_START, step, Constants.ASPHALT2_ROAD_FINISH, step);
             asphaltRoad2.setStrokeWidth(20);
             asphaltRoad2.setStroke(Color.rgb(35, 27, 19));
 

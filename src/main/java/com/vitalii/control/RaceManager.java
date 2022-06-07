@@ -2,6 +2,8 @@ package com.vitalii.control;
 
 import com.vitalii.model.Car;
 import com.vitalii.model.CarImpl;
+import com.vitalii.model.Road;
+import com.vitalii.utils.Constants;
 import javafx.scene.Group;
 
 import java.util.ArrayList;
@@ -9,9 +11,6 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
-
-import static com.vitalii.utils.Constants.CARS_TO_RACE;
-import static com.vitalii.utils.Constants.DISTANCE_TO_RACE;
 
 public class RaceManager {
 
@@ -25,24 +24,24 @@ public class RaceManager {
     public RaceManager(Group root) {
         this.root = root;
 
-        carImpl = new CarImpl(CARS_TO_RACE, root);
+        carImpl = new CarImpl(Constants.CARS_TO_RACE, root);
         carsToRace = carImpl.getCars();
     }
 
     public void startRace() {
 
-        final ExecutorService executorService = Executors.newFixedThreadPool(CARS_TO_RACE);
+        final ExecutorService executorService = Executors.newFixedThreadPool(Constants.CARS_TO_RACE);
 
         if (winner != null) {
             carImpl.reload();
             winner = null;
         }
 
-        final Semaphore semaphore = new Semaphore(3);
+        final Semaphore semaphore = new Semaphore(2);
 
-        countDownLatch = new CountDownLatch(CARS_TO_RACE);
+        countDownLatch = new CountDownLatch(Constants.CARS_TO_RACE);
 
-        for (int i = 0; i < CARS_TO_RACE; i++) {
+        for (int i = 0; i < Constants.CARS_TO_RACE; i++) {
             final int index = i;
             executorService.execute(new Runnable() {
                 public void run() {
@@ -58,14 +57,22 @@ public class RaceManager {
                         e.printStackTrace();
                     }
 
-                    while (car.getPassedDistance() <= DISTANCE_TO_RACE) {
+                    while (car.getPassedDistance() <= Constants.DISTANCE_TO_RACE) {
 
-                        car.move();
+                        if (car.getRoad().equals(Road.TUNNEL)) {
+                            try {
+                                semaphore.acquire();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
 
-                        try {
-                            Thread.sleep(15);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
+                            while (car.getRoad().equals(Road.TUNNEL)) {
+                                race(car);
+                            }
+
+                            semaphore.release();
+                        } else {
+                            race(car);
                         }
                     }
 
@@ -81,6 +88,16 @@ public class RaceManager {
         }
 
         executorService.shutdown();
+    }
+
+    private void race(Car car) {
+        car.move();
+
+        try {
+            Thread.sleep(15);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private void prepareToRace(String name) {

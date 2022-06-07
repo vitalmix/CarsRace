@@ -47,7 +47,6 @@ public class RaceManager {
                 public void run() {
 
                     Car car = carsToRace.get(index);
-                    car.setSemaphore(semaphore);
 
                     prepareToRace(car.getName());
 

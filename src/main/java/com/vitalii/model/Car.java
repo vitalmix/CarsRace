@@ -2,8 +2,6 @@ package com.vitalii.model;
 
 import javafx.application.Platform;
 
-import java.util.concurrent.Semaphore;
-
 public class Car {
 
     private String name;
@@ -15,8 +13,6 @@ public class Car {
     private Road road = Road.ASPHALT;
 
     private float step;
-
-    private Semaphore semaphore;
 
     public Car(String name, int speed, int maxSpeed, int acceleration, CarView carView) {
         this.name = name;
@@ -101,10 +97,6 @@ public class Car {
 
     public void setPassedDistance(int passedDistance) {
         this.passedDistance = passedDistance;
-    }
-
-    public void setSemaphore(Semaphore semaphore) {
-        this.semaphore = semaphore;
     }
 
     public Road getRoad() {

@@ -1,5 +1,6 @@
 package com.vitalii.model;
 
+import com.vitalii.utils.Constants;
 import javafx.application.Platform;
 
 public class Car {
@@ -50,15 +51,18 @@ public class Car {
     }
 
     private void checkRoad() {
-        if (passedDistance >= 169 && passedDistance <= 299 && !road.equals(Road.OFF_ROAD)) {
+        if (passedDistance >= Constants.OFF_ROAD_START && passedDistance <= Constants.OFF_ROAD_FINISH
+                && !road.equals(Road.OFF_ROAD)) {
             road = Road.OFF_ROAD;
         }
 
-        if (passedDistance >= 319 && passedDistance <= 399 && !road.equals(Road.TUNNEL)) {
+        if (passedDistance >= Constants.TUNNEL_ROAD_START && passedDistance <= Constants.TUNNEL_ROAD_FINISH
+                && !road.equals(Road.TUNNEL)) {
             road = Road.TUNNEL;
         }
 
-        if (passedDistance >= 419 && passedDistance <= 590 && !road.equals(Road.ASPHALT)) {
+        if (passedDistance >= Constants.ASPHALT2_ROAD_START && passedDistance <= Constants.ASPHALT2_ROAD_FINISH
+                && !road.equals(Road.ASPHALT)) {
             road = Road.ASPHALT;
         }
     }

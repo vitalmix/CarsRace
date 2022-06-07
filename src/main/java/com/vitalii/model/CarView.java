@@ -5,7 +5,7 @@ import javafx.scene.image.ImageView;
 
 public class CarView {
 
-    private final Image image = new Image("car2_1.png");
+    private final Image image = new Image("car.png");
     private final ImageView imageView = new ImageView(image);
 
     public CarView() {

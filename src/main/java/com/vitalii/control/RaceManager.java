@@ -5,6 +5,7 @@ import com.vitalii.model.CarImpl;
 import javafx.scene.Group;
 
 import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -18,6 +19,8 @@ public class RaceManager {
     private String winner;
 
     private boolean isRace = false;
+
+    CountDownLatch countDownLatch;
 
     public RaceManager(Group root) {
         this.root = root;
@@ -38,13 +41,23 @@ public class RaceManager {
         final Object monitor = new Object();
         isRace = true;
 
-        System.out.println("The race has started!");
+        countDownLatch = new CountDownLatch(CARS_TO_RACE);
 
         for (int i = 0; i < CARS_TO_RACE; i++) {
             final int index = i;
             executorService.execute(new Runnable() {
                 public void run() {
+
                     Car car = carsToRace.get(index);
+
+                    prepareToRace(car.getName());
+
+                    try {
+                        countDownLatch.await();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
                     while (isRace) {
                         synchronized (monitor) {
                             if (Thread.interrupted()) {
@@ -79,5 +92,20 @@ public class RaceManager {
         }
 
         executorService.shutdown();
+    }
+
+    private void prepareToRace(String name) {
+
+        int timeToPrepare = carImpl.getRandNumber(1000,3000);
+
+        try {
+            Thread.sleep(timeToPrepare);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        countDownLatch.countDown();
+
+        System.out.println(name + " is ready!");
     }
 }

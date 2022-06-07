@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Semaphore;
 
 import static com.vitalii.utils.Constants.CARS_TO_RACE;
 import static com.vitalii.utils.Constants.DISTANCE_TO_RACE;
@@ -18,8 +19,6 @@ public class RaceManager {
     private ArrayList<Car> carsToRace;
     private CarImpl carImpl;
     private String winner;
-
-    private boolean isRace = false;
 
     private CountDownLatch countDownLatch;
 
@@ -39,8 +38,7 @@ public class RaceManager {
             winner = null;
         }
 
-        final Object monitor = new Object();
-        isRace = true;
+        final Semaphore semaphore = new Semaphore(3);
 
         countDownLatch = new CountDownLatch(CARS_TO_RACE);
 
@@ -50,6 +48,7 @@ public class RaceManager {
                 public void run() {
 
                     Car car = carsToRace.get(index);
+                    car.setSemaphore(semaphore);
 
                     prepareToRace(car.getName());
 
@@ -59,35 +58,24 @@ public class RaceManager {
                         e.printStackTrace();
                     }
 
-                    while (isRace) {
-                        synchronized (monitor) {
-                            if (Thread.interrupted()) {
-                                System.out.println(car.getName() + " has passed: " + car.getPassedDistance() +
-                                        " speed: " + car.getSpeed());
-                                break;
-                            }
-                            if (car.getPassedDistance() >= DISTANCE_TO_RACE) {
-                                if (winner == null) {
-                                    winner = car.getName();
-                                    isRace = false;
-                                    System.out.println(winner + " is the Winner!");
-                                    System.out.println("Passed distance: " + car.getPassedDistance());
-                                    executorService.shutdownNow();
-                                }
-                                System.out.println(car.getName() + " has passed: " + car.getPassedDistance() +
-                                        " speed: " + car.getSpeed());
-                                break;
-                            }
-                        }
+                    while (car.getPassedDistance() <= DISTANCE_TO_RACE) {
+
                         car.move();
+
                         try {
                             Thread.sleep(15);
                         } catch (InterruptedException e) {
-                            System.out.println(car.getName() + " has passed: " + car.getPassedDistance() +
-                                  " speed: " + car.getSpeed());
-                            break;
+                            e.printStackTrace();
                         }
                     }
+
+                    if (winner == null) {
+                        winner = car.getName();
+                        System.out.println(winner + " is the Winner!");
+                        System.out.println("Passed distance: " + car.getPassedDistance());
+                    }
+                    System.out.println(car.getName() + " has passed: " + car.getPassedDistance() +
+                            " speed: " + car.getSpeed());
                 }
             });
         }
@@ -97,7 +85,7 @@ public class RaceManager {
 
     private void prepareToRace(String name) {
 
-        int timeToPrepare = carImpl.getRandNumber(1000,3000);
+        int timeToPrepare = carImpl.getRandNumber(1000, 3000);
 
         try {
             Thread.sleep(timeToPrepare);

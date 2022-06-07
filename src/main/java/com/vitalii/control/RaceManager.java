@@ -37,7 +37,7 @@ public class RaceManager {
             winner = null;
         }
 
-        final Semaphore semaphore = new Semaphore(2);
+        final Semaphore semaphore = new Semaphore(Constants.CARS_IN_TUNNEL);
 
         countDownLatch = new CountDownLatch(Constants.CARS_TO_RACE);
 

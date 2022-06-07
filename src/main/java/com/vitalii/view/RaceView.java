@@ -1,6 +1,7 @@
 package com.vitalii.view;
 
 import com.vitalii.control.RaceManager;
+import com.vitalii.utils.Constants;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -11,8 +12,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
-
-import static com.vitalii.utils.Constants.CARS_TO_RACE;
 
 public class RaceView extends Application {
 
@@ -65,7 +64,7 @@ public class RaceView extends Application {
 
         int step = 40;
 
-        for (int i = 0; i < CARS_TO_RACE; i++) {
+        for (int i = 0; i < Constants.CARS_TO_RACE; i++) {
 
             Line asphaltRoad = new Line(0, step, 149, step);
             asphaltRoad.setStrokeWidth(20);

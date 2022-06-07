@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
@@ -69,10 +70,11 @@ public class RaceView extends Application {
 
             Line asphaltRoad = new Line(0,step,149,step);
             asphaltRoad.setStrokeWidth(20);
+            asphaltRoad.setStroke(Color.rgb(35,27,19));
 
             Line offRoad = new Line(169,step,299,step);
             offRoad.setStrokeWidth(20);
-            offRoad.setStroke(Color.BROWN);
+            offRoad.setStroke(Color.rgb(205,129,47));
 
             Line tunnel = new Line(319,step,399,step);
             tunnel.setStrokeWidth(20);
@@ -80,6 +82,7 @@ public class RaceView extends Application {
 
             Line asphaltRoad2 = new Line(419,step,590,step);
             asphaltRoad2.setStrokeWidth(20);
+            asphaltRoad2.setStroke(Color.rgb(35,27,19));
 
             step += 50;
 

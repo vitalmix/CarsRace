@@ -26,9 +26,9 @@ public class RaceView extends Application {
         addRoads(root);
 
         Line finishLine = new Line();
-        finishLine.setStartX(600);
+        finishLine.setStartX(750);
         finishLine.setStartY(10);
-        finishLine.setEndX(600);
+        finishLine.setEndX(750);
         finishLine.setEndY(550);
         finishLine.setStrokeWidth(5);
         finishLine.setStroke(Color.WHITE);

@@ -12,6 +12,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
+import static com.vitalii.utils.Constants.CARS_TO_RACE;
+
 public class RaceView extends Application {
 
     public void start(Stage primaryStage) throws Exception {
@@ -21,6 +23,8 @@ public class RaceView extends Application {
         Button button = new Button("Start the Race!");
 
         Group root = new Group();
+
+        addRoads(root);
 
         final RaceManager raceManager = new RaceManager(root);
 
@@ -55,5 +59,34 @@ public class RaceView extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
+    }
+
+    private void addRoads(Group root) {
+
+        int step = 40;
+
+        for (int i = 0; i < CARS_TO_RACE; i++) {
+
+            Line asphaltRoad = new Line(0,step,149,step);
+            asphaltRoad.setStrokeWidth(20);
+
+            Line offRoad = new Line(169,step,299,step);
+            offRoad.setStrokeWidth(20);
+            offRoad.setStroke(Color.BROWN);
+
+            Line tunnel = new Line(319,step,399,step);
+            tunnel.setStrokeWidth(20);
+            tunnel.setStroke(Color.GRAY);
+
+            Line asphaltRoad2 = new Line(419,step,590,step);
+            asphaltRoad2.setStrokeWidth(20);
+
+            step += 50;
+
+            root.getChildren().add(asphaltRoad);
+            root.getChildren().add(offRoad);
+            root.getChildren().add(tunnel);
+            root.getChildren().add(asphaltRoad2);
+        }
     }
 }

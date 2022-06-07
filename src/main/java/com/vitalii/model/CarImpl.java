@@ -41,7 +41,7 @@ public class CarImpl {
         }
     }
 
-    private int getRandNumber(int min, int max) {
+    public int getRandNumber(int min, int max) {
 
         return (int) ((Math.random() * (max - min) + min));
     }

@@ -21,7 +21,7 @@ public class RaceManager {
 
     private boolean isRace = false;
 
-    CountDownLatch countDownLatch;
+    private CountDownLatch countDownLatch;
 
     public RaceManager(Group root) {
         this.root = root;

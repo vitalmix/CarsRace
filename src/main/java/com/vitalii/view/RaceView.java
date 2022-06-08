@@ -48,13 +48,6 @@ public class RaceView extends Application {
             }
         });
 
-        scene.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                System.out.println("X: " + mouseEvent.getX());
-            }
-        });
-
         root.getChildren().add(button);
         primaryStage.setScene(scene);
         primaryStage.show();

@@ -86,8 +86,6 @@ public class RaceManager {
 
                     if (winner == null) {
                         winner = car.getName();
-                        System.out.println(winner + " is the Winner!");
-                        System.out.println("Passed distance: " + car.getPassedDistance());
                     }
 
                     synchronized (finishCarsCounterMonitor) {

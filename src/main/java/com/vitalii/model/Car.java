@@ -13,6 +13,7 @@ public class Car {
     private CarView carView;
     private int passedDistance = 0;
     private Road road = Road.ASPHALT;
+    private int placeAfterRace;
 
     private Text indicatorOfRaceStage;
 
@@ -111,11 +112,20 @@ public class Car {
         return road;
     }
 
-    public Text getIndicatorOfRaceStage() {
-        return indicatorOfRaceStage;
+    public void setIndicatorOfRaceStage(String indicatorOfRaceStageText) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                indicatorOfRaceStage.setText(indicatorOfRaceStageText);
+            }
+        });
     }
 
-    public void setIndicatorOfRaceStage(String indicatorOfRaceStage) {
-        this.indicatorOfRaceStage.setText(indicatorOfRaceStage);;
+    public int getPlaceAfterRace() {
+        return placeAfterRace;
+    }
+
+    public void setPlaceAfterRace(int placeAfterRace) {
+        this.placeAfterRace = placeAfterRace;
     }
 }

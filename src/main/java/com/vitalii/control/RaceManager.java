@@ -96,7 +96,7 @@ public class RaceManager {
                     car.setIndicatorOfRaceStage(car.getPlaceAfterRace() + " place!");
 
                     car.setCarInfoAfterRace("CAR INFO: " + getPlace(car.getPlaceAfterRace()) +
-                            "Speed: " + car.getSpeed() + "Time: " +
+                            "Speed: " + car.getSpeed() + " Time: " +
                             (float) (System.currentTimeMillis() - beforeRace) / 1000);
                 }
             });

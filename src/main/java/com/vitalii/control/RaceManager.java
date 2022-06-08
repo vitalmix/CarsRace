@@ -33,12 +33,14 @@ public class RaceManager {
 
     public void startRace() {
 
-        Object finishCarsCounterMonitor = new Object();
+        final Object finishCarsCounterMonitor = new Object();
+        final Object winnerMonitor = new Object();
 
         final ExecutorService executorService = Executors.newFixedThreadPool(Constants.CARS_TO_RACE);
 
         if (winner != null) {
             carImpl.reload();
+            finishCarsCounter = 0;
             winner = null;
         }
 
@@ -84,8 +86,10 @@ public class RaceManager {
                         }
                     }
 
-                    if (winner == null) {
-                        winner = car.getName();
+                    synchronized (winnerMonitor) {
+                        if (winner == null) {
+                            winner = car.getName();
+                        }
                     }
 
                     synchronized (finishCarsCounterMonitor) {

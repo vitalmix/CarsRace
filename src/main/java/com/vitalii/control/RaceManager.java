@@ -20,6 +20,8 @@ public class RaceManager {
     private CarImpl carImpl;
     private String winner;
 
+    private int finishCarsCounter;
+
     private CountDownLatch countDownLatch;
 
     public RaceManager(Group root) {
@@ -30,6 +32,8 @@ public class RaceManager {
     }
 
     public void startRace() {
+
+        Object finishCarsCounterMonitor = new Object();
 
         final ExecutorService executorService = Executors.newFixedThreadPool(Constants.CARS_TO_RACE);
 
@@ -57,6 +61,8 @@ public class RaceManager {
                         e.printStackTrace();
                     }
 
+                    car.setIndicatorOfRaceStage("in race!");
+
                     while (car.getPassedDistance() <= Constants.DISTANCE_TO_RACE) {
 
                         if (car.getRoad().equals(Road.TUNNEL)) {
@@ -81,6 +87,15 @@ public class RaceManager {
                         System.out.println(winner + " is the Winner!");
                         System.out.println("Passed distance: " + car.getPassedDistance());
                     }
+
+                    synchronized (finishCarsCounterMonitor) {
+                        finishCarsCounter++;
+                    }
+
+                    car.setPlaceAfterRace(finishCarsCounter);
+
+                    car.setIndicatorOfRaceStage(finishCarsCounter + " place!");
+
                     System.out.println(car.getName() + " has passed: " + car.getPassedDistance() +
                             " speed: " + car.getSpeed());
                 }
@@ -109,12 +124,8 @@ public class RaceManager {
         for (int i = 0; i < 101; i++) {
 
             final int index = i;
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    car.setPercentOfPreparing(index + "%");
-                }
-            });
+
+            car.setIndicatorOfRaceStage(index + "%");
 
             try {
                 Thread.sleep((long) oneHundredthOfTime);

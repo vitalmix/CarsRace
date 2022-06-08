@@ -16,18 +16,18 @@ public class CarImpl {
 
         for (int i = 0; i < amountOfCarsToImpl; i++) {
 
-            Text percentOfPreparing = new Text("0%");
-            percentOfPreparing.setFont(new Font(20));
+            Text indicatorOfRaceStage = new Text("0%");
+            indicatorOfRaceStage.setFont(new Font(20));
 
             Car buffCar = new Car("Car " + (i + 1), (i + 1), getRandNumber(200, 250), getRandNumber(10, 20),
-                    new CarView(), percentOfPreparing);
+                    new CarView(), indicatorOfRaceStage);
 
-            percentOfPreparing.setX(755);
-            percentOfPreparing.setY(step + 25);
+            indicatorOfRaceStage.setX(755);
+            indicatorOfRaceStage.setY(step + 25);
             buffCar.getCarView().getImageView().setX(0);
             buffCar.getCarView().getImageView().setY(step);
             root.getChildren().add(buffCar.getCarView().getImageView());
-            root.getChildren().add(percentOfPreparing);
+            root.getChildren().add(indicatorOfRaceStage);
 
             step += 50;
 

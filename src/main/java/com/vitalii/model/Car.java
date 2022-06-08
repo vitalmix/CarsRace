@@ -14,17 +14,17 @@ public class Car {
     private int passedDistance = 0;
     private Road road = Road.ASPHALT;
 
-    private Text percentOfPreparing;
+    private Text indicatorOfRaceStage;
 
     private float step;
 
-    public Car(String name, int speed, int maxSpeed, int acceleration, CarView carView, Text percentOfPreparing) {
+    public Car(String name, int speed, int maxSpeed, int acceleration, CarView carView, Text indicatorOfRaceStage) {
         this.name = name;
         this.speed = speed;
         this.maxSpeed = maxSpeed;
         this.acceleration = acceleration;
         this.carView = carView;
-        this.percentOfPreparing = percentOfPreparing;
+        this.indicatorOfRaceStage = indicatorOfRaceStage;
     }
 
     public void accelerate() {
@@ -111,11 +111,11 @@ public class Car {
         return road;
     }
 
-    public Text getPercentOfPreparing() {
-        return percentOfPreparing;
+    public Text getIndicatorOfRaceStage() {
+        return indicatorOfRaceStage;
     }
 
-    public void setPercentOfPreparing(String percentOfPreparing) {
-        this.percentOfPreparing.setText(percentOfPreparing);;
+    public void setIndicatorOfRaceStage(String indicatorOfRaceStage) {
+        this.indicatorOfRaceStage.setText(indicatorOfRaceStage);;
     }
 }

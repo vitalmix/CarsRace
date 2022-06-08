@@ -2,6 +2,7 @@ package com.vitalii.model;
 
 import com.vitalii.utils.Constants;
 import javafx.application.Platform;
+import javafx.scene.text.Text;
 
 public class Car {
 
@@ -13,14 +14,17 @@ public class Car {
     private int passedDistance = 0;
     private Road road = Road.ASPHALT;
 
+    private Text percentOfPreparing;
+
     private float step;
 
-    public Car(String name, int speed, int maxSpeed, int acceleration, CarView carView) {
+    public Car(String name, int speed, int maxSpeed, int acceleration, CarView carView, Text percentOfPreparing) {
         this.name = name;
         this.speed = speed;
         this.maxSpeed = maxSpeed;
         this.acceleration = acceleration;
         this.carView = carView;
+        this.percentOfPreparing = percentOfPreparing;
     }
 
     public void accelerate() {
@@ -105,5 +109,13 @@ public class Car {
 
     public Road getRoad() {
         return road;
+    }
+
+    public Text getPercentOfPreparing() {
+        return percentOfPreparing;
+    }
+
+    public void setPercentOfPreparing(String percentOfPreparing) {
+        this.percentOfPreparing.setText(percentOfPreparing);;
     }
 }

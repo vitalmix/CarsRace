@@ -1,6 +1,8 @@
 package com.vitalii.model;
 
 import javafx.scene.Group;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 
@@ -14,12 +16,18 @@ public class CarImpl {
 
         for (int i = 0; i < amountOfCarsToImpl; i++) {
 
-            Car buffCar = new Car("Car " + (i + 1), (i + 1), getRandNumber(200, 250), getRandNumber(10, 20),
-                    new CarView());
+            Text percentOfPreparing = new Text("0%");
+            percentOfPreparing.setFont(new Font(20));
 
+            Car buffCar = new Car("Car " + (i + 1), (i + 1), getRandNumber(200, 250), getRandNumber(10, 20),
+                    new CarView(), percentOfPreparing);
+
+            percentOfPreparing.setX(755);
+            percentOfPreparing.setY(step + 25);
             buffCar.getCarView().getImageView().setX(0);
             buffCar.getCarView().getImageView().setY(step);
             root.getChildren().add(buffCar.getCarView().getImageView());
+            root.getChildren().add(percentOfPreparing);
 
             step += 50;
 

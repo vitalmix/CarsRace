@@ -63,6 +63,8 @@ public class RaceManager {
 
                     car.setIndicatorOfRaceStage("in race!");
 
+                    long beforeRace = System.currentTimeMillis();
+
                     while (car.getPassedDistance() <= Constants.DISTANCE_TO_RACE) {
 
                         if (car.getRoad().equals(Road.TUNNEL)) {
@@ -90,14 +92,14 @@ public class RaceManager {
 
                     synchronized (finishCarsCounterMonitor) {
                         finishCarsCounter++;
+                        car.setPlaceAfterRace(finishCarsCounter);
                     }
 
-                    car.setPlaceAfterRace(finishCarsCounter);
+                    car.setIndicatorOfRaceStage(car.getPlaceAfterRace() + " place!");
 
-                    car.setIndicatorOfRaceStage(finishCarsCounter + " place!");
-
-                    System.out.println(car.getName() + " has passed: " + car.getPassedDistance() +
-                            " speed: " + car.getSpeed());
+                    car.setCarInfoAfterRace("CAR INFO: " + getPlace(car.getPlaceAfterRace()) +
+                            "Speed: " + car.getSpeed() + "Time: " +
+                            (float) (System.currentTimeMillis() - beforeRace) / 1000);
                 }
             });
         }
@@ -113,6 +115,23 @@ public class RaceManager {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    private String getPlace(int place) {
+        String placeStr = "Place: ";
+        if (place == 1) {
+            return "WINNER!!! THE 1ST ONE! ";
+        }
+
+        if (place == 2) {
+            return "THE 2nd! ";
+        }
+
+        if (place == 3) {
+            return "THE 3rd! ";
+        }
+
+        return placeStr + place + " ";
     }
 
     private void prepareToRace(Car car) {

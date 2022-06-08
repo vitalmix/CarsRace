@@ -34,7 +34,7 @@ public class RaceView extends Application {
         finishLine.setStroke(Color.WHITE);
         root.getChildren().add(finishLine);
 
-        final RaceManager raceManager = new RaceManager(root);
+        final RaceManager raceManager = new RaceManager(root, button);
 
         Scene scene = new Scene(root, 835, 600, Color.LIGHTSKYBLUE);
 
@@ -43,6 +43,7 @@ public class RaceView extends Application {
 
         button.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
+                button.setDisable(true);
                 raceManager.startRace();
             }
         });

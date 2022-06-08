@@ -54,6 +54,7 @@ public class CarImpl {
             car.setAcceleration(getRandNumber(10,15));
             car.setPassedDistance(0);
             car.getCarView().getImageView().setX(0);
+            car.setCarInfoAfterRace("");
         }
     }
 

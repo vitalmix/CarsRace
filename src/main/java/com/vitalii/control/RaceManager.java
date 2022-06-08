@@ -4,14 +4,11 @@ import com.vitalii.model.Car;
 import com.vitalii.model.CarImpl;
 import com.vitalii.model.Road;
 import com.vitalii.utils.Constants;
-import javafx.application.Platform;
 import javafx.scene.Group;
+import javafx.scene.control.Button;
 
 import java.util.ArrayList;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Semaphore;
+import java.util.concurrent.*;
 
 public class RaceManager {
 
@@ -22,10 +19,13 @@ public class RaceManager {
 
     private int finishCarsCounter;
 
-    private CountDownLatch countDownLatch;
+    private Button startButton;
 
-    public RaceManager(Group root) {
+    private CountDownLatch countOfPreparingCars;
+
+    public RaceManager(Group root, Button startButton) {
         this.root = root;
+        this.startButton = startButton;
 
         carImpl = new CarImpl(Constants.CARS_TO_RACE, root);
         carsToRace = carImpl.getCars();
@@ -44,7 +44,7 @@ public class RaceManager {
 
         final Semaphore semaphore = new Semaphore(Constants.CARS_IN_TUNNEL);
 
-        countDownLatch = new CountDownLatch(Constants.CARS_TO_RACE);
+        countOfPreparingCars = new CountDownLatch(Constants.CARS_TO_RACE);
 
         for (int i = 0; i < Constants.CARS_TO_RACE; i++) {
             final int index = i;
@@ -56,7 +56,7 @@ public class RaceManager {
                     prepareToRace(car);
 
                     try {
-                        countDownLatch.await();
+                        countOfPreparingCars.await();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -105,6 +105,19 @@ public class RaceManager {
         }
 
         executorService.shutdown();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    executorService.awaitTermination(20, TimeUnit.SECONDS);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                startButton.setDisable(false);
+            }
+        }).start();
     }
 
     private void race(Car car) {
@@ -152,7 +165,7 @@ public class RaceManager {
                 e.printStackTrace();
             }
         }
-        countDownLatch.countDown();
+        countOfPreparingCars.countDown();
 
     }
 }

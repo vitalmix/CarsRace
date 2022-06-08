@@ -4,6 +4,7 @@ import com.vitalii.model.Car;
 import com.vitalii.model.CarImpl;
 import com.vitalii.model.Road;
 import com.vitalii.utils.Constants;
+import javafx.application.Platform;
 import javafx.scene.Group;
 
 import java.util.ArrayList;
@@ -48,7 +49,7 @@ public class RaceManager {
 
                     Car car = carsToRace.get(index);
 
-                    prepareToRace(car.getName());
+                    prepareToRace(car);
 
                     try {
                         countDownLatch.await();
@@ -99,18 +100,29 @@ public class RaceManager {
         }
     }
 
-    private void prepareToRace(String name) {
+    private void prepareToRace(Car car) {
 
-        int timeToPrepare = carImpl.getRandNumber(1000, 3000);
+        float timeToPrepare = carImpl.getRandNumber(1000, 3000);
 
-        try {
-            Thread.sleep(timeToPrepare);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        float oneHundredthOfTime = timeToPrepare / 100;
+
+        for (int i = 0; i < 101; i++) {
+
+            final int index = i;
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    car.setPercentOfPreparing(index + "%");
+                }
+            });
+
+            try {
+                Thread.sleep((long) oneHundredthOfTime);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-
         countDownLatch.countDown();
 
-        System.out.println(name + " is ready!");
     }
 }

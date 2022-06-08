@@ -16,16 +16,19 @@ public class Car {
     private int placeAfterRace;
 
     private Text indicatorOfRaceStage;
+    private Text carInfoAfterRace;
 
     private float step;
 
-    public Car(String name, int speed, int maxSpeed, int acceleration, CarView carView, Text indicatorOfRaceStage) {
+    public Car(String name, int speed, int maxSpeed, int acceleration, CarView carView, Text indicatorOfRaceStage,
+               Text carInfoAfterRace) {
         this.name = name;
         this.speed = speed;
         this.maxSpeed = maxSpeed;
         this.acceleration = acceleration;
         this.carView = carView;
         this.indicatorOfRaceStage = indicatorOfRaceStage;
+        this.carInfoAfterRace = carInfoAfterRace;
     }
 
     public void accelerate() {
@@ -127,5 +130,14 @@ public class Car {
 
     public void setPlaceAfterRace(int placeAfterRace) {
         this.placeAfterRace = placeAfterRace;
+    }
+
+    public void setCarInfoAfterRace(String carInfoAfterRaceText) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                carInfoAfterRace.setText(carInfoAfterRaceText);
+            }
+        });
     }
 }

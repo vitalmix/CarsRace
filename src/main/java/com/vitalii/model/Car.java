@@ -83,14 +83,6 @@ public class Car {
         return speed;
     }
 
-    public int getMaxSpeed() {
-        return maxSpeed;
-    }
-
-    public int getAcceleration() {
-        return acceleration;
-    }
-
     public CarView getCarView() {
         return carView;
     }

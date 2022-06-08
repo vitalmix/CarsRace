@@ -36,10 +36,10 @@ public class RaceView extends Application {
 
         final RaceManager raceManager = new RaceManager(root);
 
-        Scene scene = new Scene(root, 800, 600, Color.LIGHTSKYBLUE);
+        Scene scene = new Scene(root, 810, 600, Color.LIGHTSKYBLUE);
 
         button.setLayoutX(350);
-        button.setLayoutY(550);
+        button.setLayoutY(560);
 
         button.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {

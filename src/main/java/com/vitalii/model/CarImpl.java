@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class CarImpl {
 
-    private ArrayList<Car> cars = new ArrayList<Car>();
+    private ArrayList<Car> cars = new ArrayList<>();
 
     public CarImpl(int amountOfCarsToImpl, Group root) {
 
